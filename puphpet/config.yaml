@@ -22,6 +22,9 @@ vagrantfile-local:
                 50U19WaV2mu4:
                     host: '1081'
                     guest: '1080'
+                50U19WaV2mu4:
+                    host: '13306'
+                    guest: '3306'
         post_up_message: ''
         provider:
             virtualbox:
@@ -114,6 +117,48 @@ apache:
             ssl_key: ''
             ssl_chain: ''
             ssl_certs_dir: ''
+        3WpcC8xqGgFX:
+            servername: wordpress.dev
+            serveraliases:
+                - www.wordpress.dev
+            docroot: /var/www/wordpress.dev
+            port: '80'
+            setenv:
+                - 'APP_ENV dev'
+            override:
+                - All
+            options:
+                - Indexes
+                - FollowSymLinks
+                - MultiViews
+            engine: php
+            custom_fragment: ''
+            ssl: '0'
+            ssl_cert: ''
+            ssl_key: ''
+            ssl_chain: ''
+            ssl_certs_dir: ''
+        4WpcC8xqGgFX:
+            servername: laravel.dev
+            serveraliases:
+                - www.laravel.dev
+            docroot: /var/www/laravel.dev
+            port: '80'
+            setenv:
+                - 'APP_ENV dev'
+            override:
+                - All
+            options:
+                - Indexes
+                - FollowSymLinks
+                - MultiViews
+            engine: php
+            custom_fragment: ''
+            ssl: '0'
+            ssl_cert: ''
+            ssl_key: ''
+            ssl_chain: ''
+            ssl_certs_dir: ''
     mod_pagespeed: 0
 nginx:
     install: '0'
@@ -156,6 +201,9 @@ php:
         display_errors: On
         error_reporting: '-1'
         session.save_path: /var/lib/php/session
+        memory_limit: 512M
+        post_max_size: 2048M
+        upload_max_filesize: 2048M
     timezone: America/Chicago
     mod_php: 0
 hhvm:
@@ -206,11 +254,25 @@ mysql:
         O20fpRqtwpEO:
             grant:
                 - ALL
+            name: local
+            host: localhost
+            user: local
+            password: local
+        O30fpRqtwpEO:
+            grant:
+                - ALL
             name: wordpress
             host: localhost
             user: wordpress
             password: wordpress
             sql_file: /var/www/local.dev/sql/wordpress.sql
+        O40fpRqtwpEO:
+            grant:
+                - ALL
+            name: laravel
+            host: localhost
+            user: laravel
+            password: laravel
 postgresql:
     install: '0'
     settings:
